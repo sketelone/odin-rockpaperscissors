@@ -1,25 +1,25 @@
 
-game()
+playGame()
 
-function game() {
+function playGame() {
     // plays five rounds of rock paper scissors
     let computerScore = 0;
-    let playerScore = 0;
+    let userScore = 0;
     for (let i=0; i <5; i++) {
         // get and validate user input for player play
-        let playerSelection = prompt("Rock, paper or scissors?");
-        playerSelection = playerSelection.toLowerCase();
-        if (playerSelection == null) {
+        let userPlay = prompt("Rock, paper or scissors?");
+        userPlay = userPlay.toLowerCase();
+        if (userPlay == null) {
             prompt("You must enter rock, paper or scissors!");
-        } else if(playerSelection !== "rock" &&
-            playerSelection !== "paper" &&
-            playerSelection !== "scissors") {
+        } else if(userPlay !== "rock" &&
+            userPlay !== "paper" &&
+            userPlay !== "scissors") {
             prompt("You must enter rock, paper or scissors!");
         }
         // get computer play
-        let computerSelection = computerPlay();
+        let computerPlay = getComputerPlay();
         // play game using player and computer plays
-        let outcome = rockPaperScissors(playerSelection,computerSelection);
+        let outcome = playRockPaperScissors(userPlay,computerPlay);
         // alert outcome and keep score
         if (outcome == 1) {
             alert("It's a tie!");
@@ -28,15 +28,15 @@ function game() {
             computerScore++;
         } else if (outcome == 3) {
             alert("Player wins!");
-            playerScore++;
+            userScore++;
         }
         // alert score
-        alert("Player: " + playerScore + "\nComputer: " + computerScore);
+        alert("Player: " + userScore + "\nComputer: " + computerScore);
     }
     
 } 
 
-function computerPlay() {
+function getComputerPlay() {
     // randomly generate computer play
     if (Math.random() < 0.33) {
         return "rock"
@@ -47,26 +47,26 @@ function computerPlay() {
     }
 }
 
-function rockPaperScissors(playerSelection,computerSelection) {
+function playRockPaperScissors(userPlay,computerPlay) {
     // plays a round of rock paper scissors using computer and player selections
-    if (playerSelection == computerSelection) {
+    if (userPlay == computerPlay) {
         return 1 
-    } else if (playerSelection == "rock") {
-        if (computerSelection == "paper") {
+    } else if (userPlay == "rock") {
+        if (computerPlay == "paper") {
             return 2
-        } else if (computerSelection == "scissors") {
+        } else if (computerPlay == "scissors") {
             return 3
         }
-    } else if (playerSelection == "paper") {
-        if (computerSelection == "scissors") {
+    } else if (userPlay == "paper") {
+        if (computerPlay == "scissors") {
             return 2
-        } else if (computerSelection == "rock") {
+        } else if (computerPlay == "rock") {
             return 3
         }
-    } else if (playerSelection == "scissors") {
-        if (computerSelection == "rock") {
+    } else if (userPlay == "scissors") {
+        if (computerPlay == "rock") {
             return 2
-        } else if (computerSelection == "paper") {
+        } else if (computerPlay == "paper") {
             return 3
         }
     }
