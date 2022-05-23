@@ -6,10 +6,12 @@ function game() {
     let playerScore = 0;
     for (let i=0; i <5; i++) {
         let playerSelection = prompt("Rock, paper or scissors?");
-        playerSelection = playerSelection.toLowerCase;
-        if (playerSelection != "rock" ||
-            playerSelection != "paper" ||
-            playerSelection != "scissors") {
+        playerSelection = playerSelection.toLowerCase();
+        if (playerSelection == null) {
+            prompt("You must enter rock, paper or scissors!");
+        } else if(playerSelection !== "rock" &&
+            playerSelection !== "paper" &&
+            playerSelection !== "scissors") {
             prompt("You must enter rock, paper or scissors!");
         }
         let computerSelection = computerPlay();
@@ -18,10 +20,10 @@ function game() {
             alert("It's a tie!");
         } else if (outcome == 2) {
             alert("Computer wins!");
-            computerScore = computerScore++;
+            computerScore++;
         } else if (outcome == 3) {
             alert("Player wins!");
-            playerScore = playerScore++;
+            playerScore++;
         }
         alert("Player: " + playerScore + "\nComputer: " + computerScore);
     }
@@ -29,9 +31,9 @@ function game() {
 } 
 
 function computerPlay() {
-    if (Math.floor(Math.random()) < 0.33) {
+    if (Math.random() < 0.33) {
         return "rock"
-    } else if (Math.floor(Math.random()) > 0.67){
+    } else if (Math.random() > 0.67){
         return "paper"
     } else {
         return "scissors"
