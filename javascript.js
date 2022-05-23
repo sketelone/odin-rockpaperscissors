@@ -1,4 +1,30 @@
 
+function game() {
+    let computerScore = 0;
+    let playerScore = 0;
+    for (let i=0; i <5; i++) {
+        let playerSelection = toLowerCase(prompt("Rock, paper or scissors?"))
+        if (playerSelection != rock ||
+            playerSelection != paper ||
+            playerSelection != scissors) {
+            prompt("You must enter rock, paper or scissors!")
+        }
+        let computerSelection = computerPlay();
+        let outcome = rockPaperScissors(playerSelection,computerSelection);
+        if (outcome == 1) {
+            alert("It's a tie!")
+        } else if (outcome == 2) {
+            alert("Computer wins!")
+            computerScore++
+        } else if (outcome == 3) {
+            alert("Player wins!")
+            playerScore++
+        }
+        alert("Player: " + playerScore + \n + "Computer: " + computerScore)
+    }
+    
+} 
+
 function computerPlay() {
     if (Math.floor(Math.random()) < 0.33) {
         return "rock"
@@ -10,26 +36,25 @@ function computerPlay() {
 }
 
 function rockPaperScissors(playerSelection,computerSelection) {
-    playerSelection = toLowerCase(playerSelection)
     if (playerSelection == computerSelection) {
-        return "It's a tie!"
+        return 1 
     } else if (playerSelection == "rock") {
         if (computerSelection == "paper") {
-            return "Computer wins!"
+            return 2
         } else if (computerSelection == "scissors") {
-            return "Player wins!"
+            return 3
         }
     } else if (playerSelection == "paper") {
         if (computerSelection == "scissors") {
-            return "Computer wins!"
+            return 2
         } else if (computerSelection == "rock") {
-            return "Player wins!"
+            return 3
         }
     } else if (playerSelection == "scissors") {
         if (computerSelection == "rock") {
-            return "Computer wins!"
+            return 2
         } else if (computerSelection == "paper") {
-            return "Player wins!"
+            return 3
         }
     }
 }
