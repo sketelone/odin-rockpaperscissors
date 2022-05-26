@@ -1,49 +1,89 @@
 
-playGame()
+const container = document.querySelector('.container');
+container.style.padding = '20px';
 
-function playGame() {
-    // plays five rounds of rock paper scissors
-    let computerScore = 0;
-    let userScore = 0;
-    for (let i=0; i <5; i++) {
-        // get and validate user input for player play
-        let input = prompt("Rock, paper or scissors?");
-        userPlay = input.toLowerCase();
-        console.log(userPlay)
-        // validation = validateInput(userPlay)
-        while (validateInput(userPlay)==false){
-            input = prompt("You must enter rock, paper or scissors!");
-            userPlay = input.toLowerCase();
-            // validation = validateInput(userPlay)
+const buttons = document.querySelectorAll('button');
+buttons.forEach((button) => {
+    button.style.backgroundColor = "blue";
+    button.style.padding = "15px";
+    button.addEventListener('click', playRound);
+});
+// buttons.forEach(button => button.addEventListener('click', logText));
+
+
+
+
+
+
+const roundResult = document.createElement('h4');
+const score = document.createElement('h4');
+const gameResult = document.createElement('h3');
+
+const result = document.createElement('div');
+result.style.border = '6px solid blue';
+result.style.borderRadius = '25px';
+
+
+
+function logText(e) {
+    console.log(e.srcElement.id);
+}
+
+//initialize game variables
+let round = 0;
+let computerScore = 0;
+let userScore = 0;
+
+function playRound(e) {
+        if (round == 5) {
+            resetGame();
         }
+        userPlay = e.srcElement.id;
+        console.log(userPlay)
+        // // validation = validateInput(userPlay)
+        // while (validateInput(userPlay)==false){
+        //     input = prompt("You must enter rock, paper or scissors!");
+        //     userPlay = e.srcElement.id;
+        //     // validation = validateInput(userPlay)
+        // }
         // get computer play
         let computerPlay = getComputerPlay();
         // play game using player and computer plays
         let outcome = playRockPaperScissors(userPlay,computerPlay);
         // alert outcome and keep score
         if (outcome == 1) {
-            alert("It's a tie!");
+            roundResult.textContent = "It's a tie!";
         } else if (outcome == 2) {
-            alert("Computer wins!");
+            roundResult.textContent = "Computer wins!";
             computerScore++;
         } else if (outcome == 3) {
-            alert("Player wins!");
+            roundResult.textContent = "Player wins!";
             userScore++;
         }
-        // alert score
-        alert("Player: " + userScore + "\nComputer: " + computerScore);
+
+        //update results section
+        document.body.appendChild(result)
+        result.appendChild(roundResult)
+        score.textContent ="Player: " + userScore + "\nComputer: " + computerScore;
+        result.appendChild(score)
+
+        round++;    
+
+    if (round == 5) {
+        finalScore = getFinalScore(computerScore, userScore);
+        if (finalScore == 1) {
+            gameResult.textContent = "Congrats! You're as smart as a computer!";
+        } else if (finalScore == 2) {
+            gameResult.textContent = "Congrats! You're dumber than a computer!";
+            computerScore++;
+        } else if (finalScore == 3) {
+            gameResult.textContent = "Congrats! You're smarter than a computer!";
+            userScore++;
+        }
+        result.appendChild(gameResult);
     }
-    finalScore = getFinalScore(computerScore, userScore);
-    if (finalScore == 1) {
-        alert("You're as smart as a computer!");
-    } else if (finalScore == 2) {
-        alert("You're dumber than a computer!");
-        computerScore++;
-    } else if (finalScore == 3) {
-        alert("You're smarter than a computer!");
-        userScore++;
-    }
-    
+
+  
 } 
 
 function getComputerPlay() {
@@ -92,15 +132,22 @@ function getFinalScore(computerScore,userScore) {
     }
 }
 
-function validateInput(input) {
-    //validates user input
-    if (input == null) {
-        return false;
-    } else if(input == "rock" ||
-        input == "paper" ||
-        input == "scissors") {
-        return true;
-    } else {
-        return false;
-    }
+// function validateInput(input) {
+//     //validates user input
+//     if (input == null) {
+//         return false;
+//     } else if(input == "rock" ||
+//         input == "paper" ||
+//         input == "scissors") {
+//         return true;
+//     } else {
+//         return false;
+//     }
+// }
+
+function resetGame() {
+    computerScore = 0;
+    userScore = 0;
+    round = 0;
+    result.removeChild(gameResult);
 }
